@@ -2,9 +2,9 @@ package com.example.opituvalnik.components.commands;
 
 import com.example.opituvalnik.components.StateManager;
 import com.example.opituvalnik.enums.State;
+import com.example.opituvalnik.requesthandler.RequestHandler;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.handlers.RequestHandler;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

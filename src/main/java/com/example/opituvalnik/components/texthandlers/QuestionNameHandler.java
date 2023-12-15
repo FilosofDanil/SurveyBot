@@ -1,25 +1,14 @@
 package com.example.opituvalnik.components.texthandlers;
 
-import com.example.opituvalnik.components.StateManager;
 import com.example.opituvalnik.components.TextHandler;
-import com.example.opituvalnik.components.keyboardsender.InlineKeyboardSender;
-import com.example.opituvalnik.components.queryhandlers.MenuHandler;
-import com.example.opituvalnik.components.queryhandlers.QuestionsHandler;
 import com.example.opituvalnik.entities.Question;
 import com.example.opituvalnik.entities.Quiz;
-import com.example.opituvalnik.enums.State;
-import com.example.opituvalnik.repositories.QuestionRepo;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component("questionCreator")
 @RequiredArgsConstructor

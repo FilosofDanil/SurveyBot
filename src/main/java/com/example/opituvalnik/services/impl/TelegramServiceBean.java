@@ -1,8 +1,8 @@
 package com.example.opituvalnik.services.impl;
 
+import com.example.opituvalnik.services.BotSender;
 import com.example.opituvalnik.services.PhotoSender;
-import com.example.telelibrary.services.bot.BotSender;
-import com.example.telelibrary.services.bot.TelegramBotService;
+import com.example.opituvalnik.services.TelegramBotService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 
 import java.io.File;
 
-@Service
+@Service("telegramServiceBean")
 @Log4j2
 public class TelegramServiceBean extends TelegramBotService implements PhotoSender {
     private final BotSender botSender;

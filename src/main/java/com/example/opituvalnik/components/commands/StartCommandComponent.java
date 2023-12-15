@@ -1,11 +1,10 @@
 package com.example.opituvalnik.components.commands;
 
 import com.example.opituvalnik.components.GlobalTextHandler;
-import com.example.opituvalnik.entities.Users;
+import com.example.opituvalnik.requesthandler.RequestHandler;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.opituvalnik.services.UserService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.handlers.RequestHandler;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;

@@ -1,12 +1,12 @@
 bot:
-  token: ${PROD_TOKEN}
-  name: ${PROD_BOT_NAME}
+  token: 6867064283:AAH2CZ0fWq-KFKDdaATxHbOJa9r_dim3KJo
+  name: surveyUAbot
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}
-    username: ${PROD_DB_USERNAME}
-    password: ${PROD_DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
     jpa:
       database: postgresql
       database-platform: org.hibernate.dialect.PostgreSQLDialect

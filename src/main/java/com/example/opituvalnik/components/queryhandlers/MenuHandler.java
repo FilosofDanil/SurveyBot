@@ -5,8 +5,8 @@ import com.example.opituvalnik.components.QueryHandler;
 import com.example.opituvalnik.components.keyboardsender.InlineKeyboardSender;
 import com.example.opituvalnik.entities.Quiz;
 import com.example.opituvalnik.repositories.QuizRepo;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +35,7 @@ public class MenuHandler implements QueryHandler {
             quizRepo.deleteById(survey.getId());
             pickedSurveyMap.remove(request.getChatId());
             telegramBotService.sendMessage(request.getChatId(), "Ваше опитування було успішно видалено");
+            return emptyCallBackQuery;
         } else if (request.getUpdate().getCallbackQuery().getData()
                 .equals("Завершити створення")) {
             List<String> rows = new ArrayList<>();
@@ -46,8 +47,9 @@ public class MenuHandler implements QueryHandler {
             rows.add("Завершити");
             telegramBotService.sendMessage(request.getChatId(), "Для того щоб завершити створення опитування вам необхідно створити та заповнити всі питання опитування. Питань у вашому опитуванні: " + survey.getQuestionsCount(), InlineKeyboardSender.buildInlineKeyboard(rows, false));
             return questionsHandler;
+        } else {
+            return this;
         }
-        return emptyCallBackQuery;
     }
 
     public void putSurveyInMap(Quiz survey, Long id) {

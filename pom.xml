@@ -46,11 +46,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.sample</groupId>
-            <artifactId>sample</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>C:/Users/serhi/Desktop/Projects/tele-library/out/artifacts/tele_library_jar/tele-library.jar</systemPath>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots-spring-boot-starter</artifactId>
+            <version>5.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>6.0.13</version>
         </dependency>
     </dependencies>
 

@@ -2,15 +2,16 @@ package com.example.opituvalnik.components.texthandlers;
 
 import com.example.opituvalnik.components.TextHandler;
 import com.example.opituvalnik.entities.Quiz;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.opituvalnik.services.UserService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component("createSurvey")
 @RequiredArgsConstructor
 public class CreatingSurveyHandler implements TextHandler {
+
     private final TelegramBotService telegramBotService;
 
     private final DescriptionSurveyHandler descriptionSurveyHandler;

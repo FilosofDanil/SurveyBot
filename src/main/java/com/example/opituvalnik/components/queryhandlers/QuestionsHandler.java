@@ -9,12 +9,11 @@ import com.example.opituvalnik.entities.Quiz;
 import com.example.opituvalnik.enums.State;
 import com.example.opituvalnik.repositories.QuestionRepo;
 import com.example.opituvalnik.repositories.QuizRepo;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.TabExpander;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

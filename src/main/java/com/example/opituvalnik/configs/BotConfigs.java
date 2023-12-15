@@ -1,6 +1,5 @@
 package com.example.opituvalnik.configs;
 
-import com.example.telelibrary.configs.BotConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

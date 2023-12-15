@@ -3,13 +3,10 @@ package com.example.opituvalnik.components.queryhandlers;
 import com.example.opituvalnik.components.QueryHandler;
 import com.example.opituvalnik.components.keyboardsender.InlineKeyboardSender;
 import com.example.opituvalnik.entities.Quiz;
-import com.example.opituvalnik.repositories.OptionsRepo;
-import com.example.opituvalnik.repositories.QuestionRepo;
 import com.example.opituvalnik.repositories.QuizRepo;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

@@ -5,6 +5,7 @@ import com.example.opituvalnik.components.QueryHandler;
 import com.example.opituvalnik.components.keyboardsender.InlineKeyboardSender;
 import com.example.opituvalnik.entities.Quiz;
 import com.example.opituvalnik.repositories.QuizRepo;
+import com.example.opituvalnik.services.StatisticService;
 import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,8 @@ public class MenuHandler implements QueryHandler {
 
     private final EmptyCallBackQuery emptyCallBackQuery;
 
+    private final StatisticService statisticService;
+
     @Override
     public QueryHandler handle(UserRequest request) {
         Quiz survey = pickedSurveyMap.get(request.getChatId());
@@ -47,6 +50,11 @@ public class MenuHandler implements QueryHandler {
             rows.add("Завершити");
             telegramBotService.sendMessage(request.getChatId(), "Для того щоб завершити створення опитування вам необхідно створити та заповнити всі питання опитування. Питань у вашому опитуванні: " + survey.getQuestionsCount(), InlineKeyboardSender.buildInlineKeyboard(rows, false));
             return questionsHandler;
+        } else if (request.getUpdate().getCallbackQuery().getData().equals("Перегляд статистики")) {
+            String backMessage = statisticService.getSurveyStats(survey);
+            backMessage += "\n Користувачів пройшло опитування: " + statisticService.passedTimes(survey);
+            telegramBotService.sendMessage(request.getChatId(), backMessage);
+            return this;
         } else {
             return this;
         }

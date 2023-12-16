@@ -12,6 +12,7 @@ import com.example.opituvalnik.repositories.QuizRepo;
 import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 @Component("questionMenu")
 @RequiredArgsConstructor
+@Log4j2
 public class QuestionsHandler implements QueryHandler {
     private final Map<Long, Quiz> pickedSurveyMap;
 
@@ -52,23 +54,29 @@ public class QuestionsHandler implements QueryHandler {
             }
 
         } else {
-            int num = Integer.parseInt(message);
-            List<Question> questions = questionRepo.findByQuizAndQuestionNum(survey.getId(), num);
-            if (!questions.isEmpty()) {
-                List<String> rows = new ArrayList<>();
-                for (int i = 0; i < survey.getQuestionsCount(); i++) {
-                    rows.add(String.valueOf(i + 1));
+            try{
+                int num = Integer.parseInt(message);
+                List<Question> questions = questionRepo.findByQuizAndQuestionNum(survey.getId(), num);
+                if (!questions.isEmpty()) {
+                    List<String> rows = new ArrayList<>();
+                    for (int i = 0; i < survey.getQuestionsCount(); i++) {
+                        rows.add(String.valueOf(i + 1));
+                    }
+                    rows.add("Завершити");
+                    stateManager.setState(State.MENU);
+                    telegramBotService.sendMessage(request.getChatId(), "Ви вже заповнили це питання!");
+                    telegramBotService.sendMessage(request.getChatId(), "Для того щоб завершити створення опитування вам необхідно створити та заповнити всі питання опитування. Питань у вашому опитуванні: " + survey.getQuestionsCount(), InlineKeyboardSender.buildInlineKeyboard(rows, false));
+                    return this;
+                } else {
+                    questionNameHandler.setNumberOfQuestion(num);
+                    questionNameHandler.putSurveyInMap(survey, request.getChatId());
+                    stateManager.setState(State.QUESTION_CREATION);
+                    telegramBotService.sendMessage(request.getChatId(), "Надішліть будь-ласка запитання або речення, на яке треба дати відповідь.");
+                    return this;
                 }
-                rows.add("Завершити");
-                stateManager.setState(State.MENU);
-                telegramBotService.sendMessage(request.getChatId(), "Ви вже заповнили це питання!");
-                telegramBotService.sendMessage(request.getChatId(), "Для того щоб завершити створення опитування вам необхідно створити та заповнити всі питання опитування. Питань у вашому опитуванні: " + survey.getQuestionsCount(), InlineKeyboardSender.buildInlineKeyboard(rows, false));
-                return this;
-            } else {
-                questionNameHandler.setNumberOfQuestion(num);
-                questionNameHandler.putSurveyInMap(survey, request.getChatId());
-                stateManager.setState(State.QUESTION_CREATION);
-                telegramBotService.sendMessage(request.getChatId(), "Надішліть будь-ласка запитання або речення, на яке треба дати відповідь.");
+            } catch (NumberFormatException e){
+                log.error(e.getMessage());
+                telegramBotService.sendMessage(request.getChatId(), "Немає такого вибору!");
                 return this;
             }
         }

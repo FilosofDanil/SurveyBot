@@ -30,7 +30,7 @@ public class CreateQuestionQuery implements QueryHandler {
             return this;
         }
         Quiz survey = quizRepo.findById(id).get();
-        List<String> rows = List.of("Завершити створення", "Видалити опитування", "Редагувати");
+        List<String> rows = List.of("Завершити створення", "Видалити опитування", "Редагувати", "Перегляд статистики");
         Map<String, String> rowMap = new HashMap<>();
         rows.forEach(row -> {
             rowMap.put(row, row);

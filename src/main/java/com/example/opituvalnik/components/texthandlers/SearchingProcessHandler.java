@@ -5,6 +5,7 @@ import com.example.opituvalnik.components.keyboardsender.ReplyKeyboardSender;
 import com.example.opituvalnik.entities.Quiz;
 import com.example.opituvalnik.repositories.QuizRepo;
 import com.example.opituvalnik.services.PhotoSender;
+import com.example.opituvalnik.services.StatisticService;
 import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,8 @@ public class SearchingProcessHandler implements TextHandler {
 
     private final StartedCertainSurvey startedSurvey;
 
+    private final StatisticService statisticService;
+
     @SneakyThrows
     @Override
     public TextHandler handle(UserRequest request) {
@@ -60,7 +63,10 @@ public class SearchingProcessHandler implements TextHandler {
                     log.error("Something went wrong with files " + e.getMessage());
                 }
                 List<String> rows = List.of("\uD83D\uDC4D", "\uD83D\uDC4E", "\uD83D\uDD0E", "\uD83D\uDCA4");
-                photoSender.sendPhoto(request.getChatId(), "lol.jpg", survey.getSurveyName() + "\n" + "Опис: " + survey.getSurveyDescription() + "\n\n" + "К-сть питань:" + survey.getQuestionsCount(),
+                photoSender.sendPhoto(request.getChatId(), "lol.jpg", survey.getSurveyName()
+                                + "\n" + "Опис: " + survey.getSurveyDescription()
+                                + "\n\n" + "К-сть питань:" + survey.getQuestionsCount()
+                                +"\n Користувачів пройшло опитування: " + statisticService.passedTimes(survey),
                         ReplyKeyboardSender.buildMainMenu(rows));
                 position++;
             } else {

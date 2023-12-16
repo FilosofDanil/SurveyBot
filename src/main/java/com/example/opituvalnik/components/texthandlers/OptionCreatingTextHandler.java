@@ -28,6 +28,8 @@ public class OptionCreatingTextHandler implements TextHandler {
 
     private final OptionsRepo optionsRepo;
 
+    private final EmptyTextHandler emptyTextHandler;
+
     private final TelegramBotService telegramBotService;
 
     @Override
@@ -43,7 +45,7 @@ public class OptionCreatingTextHandler implements TextHandler {
         });
         optionsRepo.saveAll(options);
         telegramBotService.sendMessage(request.getChatId(), "Успішно створено!");
-        return null;
+        return emptyTextHandler;
     }
 
     public void putSurveyInMap(Quiz survey, Long id) {

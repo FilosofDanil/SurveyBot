@@ -5,6 +5,7 @@ import com.example.opituvalnik.components.keyboardsender.ReplyKeyboardSender;
 import com.example.opituvalnik.entities.Quiz;
 import com.example.opituvalnik.repositories.QuizRepo;
 import com.example.opituvalnik.services.PhotoSender;
+import com.example.opituvalnik.services.StartSurveyService;
 import com.example.opituvalnik.services.StatisticService;
 import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
@@ -29,15 +30,13 @@ public class SearchingProcessHandler implements TextHandler {
 
     private final QuizRepo quizRepo;
 
-    private final PhotoSender photoSender;
-
     private final TelegramBotService telegramBotService;
 
     private final EmptyTextHandler emptyTextHandler;
 
     private final StartedCertainSurvey startedSurvey;
 
-    private final StatisticService statisticService;
+    private final StartSurveyService startSurveyService;
 
     @SneakyThrows
     @Override
@@ -53,21 +52,7 @@ public class SearchingProcessHandler implements TextHandler {
             }
             if (surveys.size() > position) {
                 Quiz survey = surveys.get(position);
-                URL urlObj = new URL(survey.getSurveyImage());
-                try (InputStream is = urlObj.openStream()) {
-                    byte[] stream = is.readAllBytes();
-                    FileOutputStream outputStream = new FileOutputStream("lol.jpg");
-                    outputStream.write(stream);
-                    outputStream.close();
-                } catch (IOException e) {
-                    log.error("Something went wrong with files " + e.getMessage());
-                }
-                List<String> rows = List.of("\uD83D\uDC4D", "\uD83D\uDC4E", "\uD83D\uDD0E", "\uD83D\uDCA4");
-                photoSender.sendPhoto(request.getChatId(), "lol.jpg", survey.getSurveyName()
-                                + "\n" + "Опис: " + survey.getSurveyDescription()
-                                + "\n\n" + "К-сть питань:" + survey.getQuestionsCount()
-                                +"\n Користувачів пройшло опитування: " + statisticService.passedTimes(survey),
-                        ReplyKeyboardSender.buildMainMenu(rows));
+                startSurveyService.startSurvey(survey, request);
                 position++;
             } else {
                 telegramBotService.sendMessage(request.getChatId(), "Опитувань більше немає :). Ви можете почати пошук заново, або почекати, поки з'являться нові опитування.");

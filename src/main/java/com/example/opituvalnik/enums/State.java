@@ -8,5 +8,6 @@ public enum State {
     RIGHT_WRONG,
     ADD_QUESTIONS,
     QUESTION_CREATION,
-    MENU
+    MENU,
+    POPULAR
 }

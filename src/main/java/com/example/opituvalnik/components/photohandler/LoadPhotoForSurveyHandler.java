@@ -57,11 +57,11 @@ public class LoadPhotoForSurveyHandler implements PhotoHandler {
         JSONObject jsonObject = new JSONObject(restTemplate.exchange(url, HttpMethod.GET, httpRequest, String.class).getBody());
         String path = String.valueOf(jsonObject.getJSONObject("result").getString("file_path"));
         String downloadSource = "https://api.telegram.org/file/bot6867064283:AAH2CZ0fWq-KFKDdaATxHbOJa9r_dim3KJo/" + path;
-        survey.setSurveyImage(downloadSource);
         URL urlObj = new URL(downloadSource);
         try (InputStream is = urlObj.openStream()) {
             byte[] stream = is.readAllBytes();
             FileOutputStream outputStream = new FileOutputStream("src/main/resources/" + path);
+            survey.setSurveyImage("src/main/resources/" + path);
             outputStream.write(stream);
             outputStream.close();
         } catch (IOException e) {

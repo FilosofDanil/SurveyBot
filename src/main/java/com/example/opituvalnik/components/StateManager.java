@@ -41,6 +41,9 @@ public class StateManager {
         } else if (state.equals(State.MENU)) {
             globalQueryHandler.setQueryHandler(context
                     .getBean("questionMenu", QueryHandler.class));
+        } else if (state.equals(State.POPULAR)) {
+            globalTextHandler.setStatefulHandler(context
+                    .getBean("popularText", TextHandler.class));
         }
     }
 }

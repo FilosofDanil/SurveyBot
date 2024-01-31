@@ -2,12 +2,10 @@ package com.example.opituvalnik.components.texthandlers;
 
 import com.example.opituvalnik.components.TextHandler;
 import com.example.opituvalnik.entities.Quiz;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import javax.swing.text.TabExpander;
 
 @Component("descriptionSurvey")
 @RequiredArgsConstructor

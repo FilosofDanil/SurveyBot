@@ -1,7 +1,7 @@
 package com.example.opituvalnik.components;
 
+import com.example.opituvalnik.requesthandler.RequestHandler;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.handlers.RequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

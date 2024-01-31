@@ -2,16 +2,13 @@ package com.example.opituvalnik.components.texthandlers;
 
 import com.example.opituvalnik.components.TextHandler;
 import com.example.opituvalnik.components.keyboardsender.ReplyKeyboardSender;
-import com.example.opituvalnik.entities.AnsweredOptions;
-import com.example.opituvalnik.entities.Option;
-import com.example.opituvalnik.entities.Question;
-import com.example.opituvalnik.entities.Quiz;
+import com.example.opituvalnik.entities.*;
 import com.example.opituvalnik.repositories.AnsweredOptionsRepo;
 import com.example.opituvalnik.repositories.OptionsRepo;
 import com.example.opituvalnik.repositories.QuestionRepo;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.opituvalnik.services.UserService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -69,7 +66,11 @@ public class StartedCertainSurvey implements TextHandler {
                     AnsweredOptions answeredOption = answeredOptions.get(countValue - 1);
                     answeredOption.setOption(previousOptions.get(picked - 1));
                     answeredOptions.remove(countValue - 1);
-                    answeredOption.setUser(userService.getByUsername(request.getUpdate().getMessage().getChat().getUserName()));
+                    Users user = userService.getByUsername(request.getUpdate().getMessage().getChat().getUserName());
+                    if(user == null){
+                        user = userService.getByUsername(request.getUpdate().getMessage().getChat().getFirstName());
+                    }
+                    answeredOption.setUser(user);
                     answeredOptions.add(countValue - 1, answeredOption);
                 }
                 StringBuilder stringBuilder = new StringBuilder();
@@ -94,7 +95,11 @@ public class StartedCertainSurvey implements TextHandler {
                 AnsweredOptions answeredOption = answeredOptions.get(countValue - 1);
                 answeredOption.setOption(options.get(picked - 1));
                 answeredOptions.remove(countValue - 1);
-                answeredOption.setUser(userService.getByUsername(request.getUpdate().getMessage().getChat().getUserName()));
+                Users user = userService.getByUsername(request.getUpdate().getMessage().getChat().getUserName());
+                if(user == null){
+                    user = userService.getByUsername(request.getUpdate().getMessage().getChat().getFirstName());
+                }
+                answeredOption.setUser(user);
                 answeredOptions.add(countValue - 1, answeredOption);
                 counter.put(request.getChatId(), 0);
                 currentSurveys.put(request.getChatId(), null);

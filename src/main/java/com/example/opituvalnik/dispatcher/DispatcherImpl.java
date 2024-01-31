@@ -1,12 +1,9 @@
 package com.example.opituvalnik.dispatcher;
 
 import com.example.opituvalnik.entities.Users;
+import com.example.opituvalnik.requesthandler.RequestHandler;
 import com.example.opituvalnik.services.UserService;
-import com.example.telelibrary.dispatcher.Dispatcher;
-import com.example.telelibrary.dispatcher.impl.DispatcherBean;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.handlers.RequestHandler;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 

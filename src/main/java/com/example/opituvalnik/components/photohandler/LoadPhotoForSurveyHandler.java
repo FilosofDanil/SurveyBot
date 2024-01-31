@@ -7,8 +7,8 @@ import com.example.opituvalnik.components.texthandlers.RightOrWrong;
 import com.example.opituvalnik.entities.Quiz;
 import com.example.opituvalnik.enums.State;
 import com.example.opituvalnik.services.PhotoSender;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
@@ -57,11 +57,11 @@ public class LoadPhotoForSurveyHandler implements PhotoHandler {
         JSONObject jsonObject = new JSONObject(restTemplate.exchange(url, HttpMethod.GET, httpRequest, String.class).getBody());
         String path = String.valueOf(jsonObject.getJSONObject("result").getString("file_path"));
         String downloadSource = "https://api.telegram.org/file/bot6867064283:AAH2CZ0fWq-KFKDdaATxHbOJa9r_dim3KJo/" + path;
-        survey.setSurveyImage(downloadSource);
         URL urlObj = new URL(downloadSource);
         try (InputStream is = urlObj.openStream()) {
             byte[] stream = is.readAllBytes();
             FileOutputStream outputStream = new FileOutputStream("src/main/resources/" + path);
+            survey.setSurveyImage("src/main/resources/" + path);
             outputStream.write(stream);
             outputStream.close();
         } catch (IOException e) {

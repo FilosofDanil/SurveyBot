@@ -6,14 +6,12 @@ import com.example.opituvalnik.entities.Quiz;
 import com.example.opituvalnik.entities.Users;
 import com.example.opituvalnik.enums.State;
 import com.example.opituvalnik.repositories.QuizRepo;
+import com.example.opituvalnik.requesthandler.RequestHandler;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.opituvalnik.services.UserService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.handlers.RequestHandler;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.meta.api.objects.User;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.ArrayList;
 import java.util.HashMap;

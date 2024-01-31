@@ -6,8 +6,8 @@ import com.example.opituvalnik.entities.Question;
 import com.example.opituvalnik.entities.Quiz;
 import com.example.opituvalnik.repositories.OptionsRepo;
 import com.example.opituvalnik.repositories.QuestionRepo;
+import com.example.opituvalnik.services.TelegramBotService;
 import com.example.telelibrary.entities.telegram.UserRequest;
-import com.example.telelibrary.services.bot.TelegramBotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +28,8 @@ public class OptionCreatingTextHandler implements TextHandler {
 
     private final OptionsRepo optionsRepo;
 
+    private final EmptyTextHandler emptyTextHandler;
+
     private final TelegramBotService telegramBotService;
 
     @Override
@@ -43,7 +45,7 @@ public class OptionCreatingTextHandler implements TextHandler {
         });
         optionsRepo.saveAll(options);
         telegramBotService.sendMessage(request.getChatId(), "Успішно створено!");
-        return null;
+        return emptyTextHandler;
     }
 
     public void putSurveyInMap(Quiz survey, Long id) {
